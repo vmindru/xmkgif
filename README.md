@@ -15,3 +15,8 @@ __xmkgif__ is just a wrapper for byzanz it will help you select a screen area us
 ## TODO: build and publish an RPM
 
 __Note:__ Source: https://bbs.archlinux.org/viewtopic.php?id=85378 
+
+## DEMO
+![alt tag](https://raw.githubusercontent.com/vmindru/xrectangle/master/misc/file.gif)
+
+ 
