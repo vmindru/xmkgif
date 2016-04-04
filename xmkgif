@@ -1,7 +1,53 @@
 #!/bin/bash
 
+DURATION=10
+CURSOR=0
+DELAY=0
+FILE="/tmp/gif.gif"
+FULL_SCREEN=0
+HELP="
 
-cords=$(xrectangle)
-echo $cords
+$0 - wrapper for byzanz
 
+	-d  duration in seconds ( default 10s )
+	-D  Delay in seconds ( default 0s )
+	-f  Path to the file to store ( default /tmp/gif.gif )
+	-c  If mentioned it will record cursor ( default false ) 
+	-F  record in full screen mode ( default False ) 
+            if not specified draw a rectacnlge area you want to capture
+"
+
+while getopts ":d:D:f:Fc" opt; do
+  case $opt in
+    F) FULL_SCREEN=1
+	;;	    
+    d) DURATION=$OPTARG
+	;; 
+    f)
+      FILE=$OPTARG
+	;; 
+    D)
+      DELAY=$OPTARG
+	;;
+    c)
+      CURSOR=1
+	;;
+    \?)
+      echo "Invalid option: -$OPTARG" >&2
+      echo "$HELP"
+      exit 
+      ;;
+  esac
+done
+
+
+if [[ $FULL_SCREEN -eq 1 ]]
+then
+	gifit="byzanz-record  -d $DURATION --delay $DELAY $( if [[ $CURSOR -eq 1 ]] ; then echo "-c" ; fi) $FILE"
+else
+	eval $(xrectangle)
+	gifit="byzanz-record  -d $DURATION --delay $DELAY $( if [[ $CURSOR -eq 1 ]] ; then echo "-c" ; fi )  -x $RECT_X -y $RECT_Y -h $RECT_HEIGHT -w $RECT_WIDTH $FILE"
+fi
+echo $gifit
+$gifit
 
