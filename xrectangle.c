@@ -113,7 +113,8 @@ int main(void)
 
   XCloseDisplay(disp);
 
-  printf("%dx%d+%d+%d\n",rw,rh,rx,ry);
+//  printf("%dx%d+%d+%d\n",rw,rh,rx,ry);
+  printf("RECT_WIDTH=%d \nRECT_HEIGHT=%d \nRECT_X=%d \nRECT_Y=%d \n",rw,rh,rx,ry);
 
   return EXIT_SUCCESS;
 }
