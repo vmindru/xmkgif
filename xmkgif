@@ -6,7 +6,6 @@ DELAY=0
 FILE="/tmp/gif.gif"
 FULL_SCREEN=0
 HELP="
-
 $0 - wrapper for byzanz
 
 	-d  duration in seconds ( default 10s )
@@ -15,6 +14,14 @@ $0 - wrapper for byzanz
 	-c  If mentioned it will record cursor ( default false ) 
 	-F  record in full screen mode ( default False ) 
             if not specified draw a rectacnlge area you want to capture
+
+        e.g.:   ./xmkgif  -d 3 /tmp/file.gif - will wait for you to draw
+                an rectangle area of your screen that you want to capture,
+                record it for 3 second and store it in /tmp/file.gif
+
+                ./xmkgif -F -d 3 /tmp/full_file.gif - note the -F param ,
+                this will simply record your entire screen for 3 second and
+                store this into /tmp/full_file.gif
 "
 
 while getopts ":d:D:f:Fc" opt; do
@@ -39,6 +46,15 @@ while getopts ":d:D:f:Fc" opt; do
       ;;
   esac
 done
+
+
+
+if [ $# -eq 0 ]
+then
+        echo "$HELP"
+        exit
+fi
+
 
 
 if [[ $FULL_SCREEN -eq 1 ]]
