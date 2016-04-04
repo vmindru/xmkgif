@@ -1,12 +1,15 @@
-# xrectangle
-Draw a rectangle with the mouse to return size and cordinates
-
-## Build 
-gcc -Wall -lX11 xrectangle.c -o xrectangle
+#xmkgif
+wrapper for byzanz to capture your screen 
 
 ## byzanz 
 tool to capture your desktop and store it in .gif format
 https://github.com/GNOME/byzanz 
+
+## xrectangle
+Draw a rectangle with the mouse to return size and cordinates
+
+## Build 
+gcc -Wall -lX11 xrectangle.c -o xrectangle
 
 ## Wrapper 
 __Note:__ Prereq install byzans on your Computer from github or using your favourite package manager 
