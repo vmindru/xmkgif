@@ -28,7 +28,7 @@ https://github.com/GNOME/byzanz
 Draw a rectangle with the mouse to return size and cordinates
 
 ## Build 
-gcc -Wall -lX11 xrectangle.c -o xrectangle
+gcc -Wall -lX11 xrectangle.c -o xrectangle -lX11
 
 ## Wrapper 
 __Note:__ Prereq install byzans on your Computer from github or using your favourite package manager 
