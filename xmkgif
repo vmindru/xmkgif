@@ -24,6 +24,59 @@ $0 - wrapper for byzanz
                 store this into /tmp/full_file.gif
 "
 
+function run_gui() {
+    
+    # Check if we have a display if not exit quitely 
+    if [ -z ${OUTPUT+x} ]
+    then
+        break
+    fi
+
+    # if we are here we most probably havea  display ! WOOHOOO!!
+    # check if zenity is installed
+    type -P "zenity" && "capturing data" 1>&2 | echo "error please install zenity" 
+
+    #CHECK IF WE WANT TO CAPTREU FULL SCREEN
+    if zenity --question --text "Do you want to caputre Full screen?" --default-cancel 
+    then
+        FULL_SCREEN=1
+    else
+        FULL_SCREEN=0
+    fi
+
+    DURATION="$(zenity --entry --text \"For how many seconds we should record the capture?\"  --entry-text=10)"
+    FILE="$(zenity --file-selection --filename=/tmp/xcapture.gif --save)"
+
+    if [[ $FULL_SCREEN -eq 1 ]]
+    then
+    	gifit="byzanz-record  -d $DURATION --delay $DELAY $( if [[ $CURSOR -eq 1 ]] ; then echo "-c" ; fi) $FILE"
+    else
+        zenity --info --text "Please use your cursor to select the are you want to capture"
+    	eval $(xrectangle)
+    	gifit="byzanz-record  -d $DURATION --delay $DELAY $( if [[ $CURSOR -eq 1 ]] ; then echo "-c" ; fi )  -x $RECT_X -y $RECT_Y -h $RECT_HEIGHT -w $RECT_WIDTH $FILE"
+    fi
+    echo "running $gifit"
+    $gifit
+    zenity --info --text "Capture complet, captured for $DURATION  and stored into $FILE"
+
+
+
+}
+
+function run_cli() {
+    if [[ $FULL_SCREEN -eq 1 ]]
+    then
+    	gifit="byzanz-record  -d $DURATION --delay $DELAY $( if [[ $CURSOR -eq 1 ]] ; then echo "-c" ; fi) $FILE"
+    else
+    	eval $(xrectangle)
+    	gifit="byzanz-record  -d $DURATION --delay $DELAY $( if [[ $CURSOR -eq 1 ]] ; then echo "-c" ; fi )  -x $RECT_X -y $RECT_Y -h $RECT_HEIGHT -w $RECT_WIDTH $FILE"
+    fi
+    echo "running $gifit"
+    $gifit
+
+}
+
+
 while getopts ":d:D:f:Fc" opt; do
   case $opt in
     F) FULL_SCREEN=1
@@ -51,19 +104,12 @@ done
 
 if [ $# -eq 0 ]
 then
-        echo "$HELP"
-        exit
-fi
-
-
-
-if [[ $FULL_SCREEN -eq 1 ]]
-then
-	gifit="byzanz-record  -d $DURATION --delay $DELAY $( if [[ $CURSOR -eq 1 ]] ; then echo "-c" ; fi) $FILE"
+        echo "$HELP" 1>&2
+        run_gui
 else
-	eval $(xrectangle)
-	gifit="byzanz-record  -d $DURATION --delay $DELAY $( if [[ $CURSOR -eq 1 ]] ; then echo "-c" ; fi )  -x $RECT_X -y $RECT_Y -h $RECT_HEIGHT -w $RECT_WIDTH $FILE"
+        run_cli
 fi
-echo $gifit
-$gifit
+
+
+
 
