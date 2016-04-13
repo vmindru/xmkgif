@@ -53,11 +53,11 @@ __xmkgif__ is just a wrapper for byzanz it will help you select a screen area us
 
 ## TODO: build and publish an RPM
 
-__Note:__ Source: https://bbs.archlinux.org/viewtopic.php?id=85378 
-
 ## DEMO CLI
 ![alt tag](https://raw.githubusercontent.com/vmindru/xrectangle/master/misc/file.gif)
 ## DEMO GUI - start 
 ![alt tag](https://raw.githubusercontent.com/vmindru/xrectangle/master/misc/xcapture.gif)
 ## DEMO GUI - result 
 ![alt tag](https://raw.githubusercontent.com/vmindru/xrectangle/master/misc/xcapture2.gif) 
+## DEMO GUI - partial screen  
+![alt tag](https://raw.githubusercontent.com/vmindru/xrectangle/master/misc/xcapture_rectangle.gif) 
