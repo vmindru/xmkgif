@@ -1,5 +1,5 @@
 Name: xmkgif
-Version: 0.1	
+Version: 0.1.1
 Release: 1%{?dist}
 Summary: screen capture tool	
 
@@ -24,9 +24,9 @@ make %{?_smp_mflags}
 
 
 %install
-%make_install
-install -m 755 -d %{buildroot}/%{_sbindir}
-ln -s ../bin/%{name} %{buildroot}/%{_sbindir}
+cp -a xmkgif %{buildroot}
+cp -a xrectangle %{buildroot}
+
 
 %files
 %doc
