@@ -8,7 +8,11 @@ FULL_SCREEN=0
 HELP="
 $0 - wrapper for byzanz
 
-	-d  duration in seconds ( default 10s )
+        xmkgif with no parameters will check for \$DISPLAY var if available and set 
+        it will attempt to interact with users other GUI to capture main information.
+        Using zenity. If \$DISPALY is not set it will simply pritn this help message.
+
+	-d  dration in seconds ( default 10s )
 	-D  Delay in seconds ( default 0s )
 	-f  Path to the file to store ( default /tmp/gif.gif )
 	-c  If mentioned it will record cursor ( default false ) 
