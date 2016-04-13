@@ -3,6 +3,10 @@ wrapper for byzanz to capture your screen
 
 ```
 ./xmkgif - wrapper for byzanz
+        
+        xmkgif with no parameters will check for $DISPLAY var if available and set 
+        it will attempt to interact with users other GUI to capture main information.
+        Using zenity. If $DISPALY is not set it will simply pritn this help message.
 
         -d  duration in seconds ( default 10s )
         -D  Delay in seconds ( default 0s )
