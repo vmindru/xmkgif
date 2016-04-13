@@ -1,6 +1,10 @@
 #xmkgif
 wrapper for byzanz to capture your screen 
 
+## small demo
+![alt tag](https://raw.githubusercontent.com/vmindru/xrectangle/master/misc/small.gif)
+
+
 ```
 ./xmkgif - wrapper for byzanz
         
