@@ -24,15 +24,28 @@ wrapper for byzanz to capture your screen
                 store this into /tmp/full_file.gif
  ```
 
-## byzanz 
+# How To Install 
+
+## Preqreq 
+
+Please install the tools bellow using your favourite package manager 
+
+### byzanz 
 tool to capture your desktop and store it in .gif format
 https://github.com/GNOME/byzanz 
 
-## xrectangle
-Draw a rectangle with the mouse to return size and cordinates
+### zenity
+Capture input var's from GUI, used for user interaction.
 
-## Build 
-gcc -Wall -lX11 xrectangle.c -o xrectangle -lX11
+
+### Build xreactangle
+build xreactangle and copy this somewhere to your $PATH 
+`gcc -Wall -lX11 xrectangle.c -o xrectangle -lX11`
+
+### xmkgif - copy this to your path
+`cp xmkgif /usr/bin/xmkgif`
+or
+`cp xmkgif $HOME/bin/xmkgif`
 
 ## Wrapper 
 __Note:__ Prereq install byzans on your Computer from github or using your favourite package manager 
