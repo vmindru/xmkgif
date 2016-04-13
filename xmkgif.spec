@@ -5,7 +5,7 @@ Summary: screen capture tool
 
 License: MIT
 URL: https://github.com/vmindru/xrectangle		
-Source0: https://github.com/vmindru/xrectangle/archive/%{version}.tar.gz 	
+Source0: https://github.com/vmindru/xrectangle/archive/%{version}.tar.gz
 
 BuildRequires: libX11-devel
 Requires: zenity,byzanz 
@@ -16,17 +16,17 @@ When executed within a X session user is presented simple GUI dialogue.
 
 
 %prep
-%autosetup -n %{name}
+%autosetup -n xrectangle-%{version}
 
 
 %build
-%configure
 make %{?_smp_mflags}
 
 
 %install
-make install DESTDIR=%{buildroot}
-
+%make_install
+install -m 755 -d %{buildroot}/%{_sbindir}
+ln -s ../bin/%{name} %{buildroot}/%{_sbindir}
 
 %files
 %doc
@@ -34,4 +34,5 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
-
+* Wed Apr 13 2016 Veaceslav Mindru <vmindru@redhat.com> - 0.1
+  - Add gui dialogues 
