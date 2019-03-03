@@ -1,6 +1,7 @@
 #!/bin/bash
 
-DURATION=10
+DEAFAULT_DURATION=99999
+DURATION=$DEFAULT_DURATION
 CURSOR=0
 DELAY=0
 FILE="/tmp/gif.gif"
@@ -8,15 +9,16 @@ FULL_SCREEN=0
 HELP="
 $0 - wrapper for byzanz
 
-        xmkgif with no parameters will check for \$DISPLAY var if available and set 
+        xmkgif with no parameters will check for \$DISPLAY var if available and set
         it will attempt to interact with users other GUI to capture main information.
-        Using zenity. If \$DISPALY is not set it will simply pritn this help message.
+        Using zenity. If \$DISPALY is not set it will simply pritn this help message.\n
+        To interupt recording before end of timer simply run xmkgif-stop.
 
-	-d  dration in seconds ( default 10s )
-	-D  Delay in seconds ( default 0s )
-	-f  Path to the file to store ( default /tmp/gif.gif )
-	-c  If mentioned it will record cursor ( default false ) 
-	-F  record in full screen mode ( default False ) 
+    -d  dration in seconds ( default 10s )
+    -D  Delay in seconds ( default 0s )
+    -f  Path to the file to store ( default /tmp/gif.gif )
+    -c  If mentioned it will record cursor ( default false )
+    -F  record in full screen mode ( default False )
             if not specified draw a rectacnlge area you want to capture
 
         e.g.:   ./xmkgif  -d 3 /tmp/file.gif - will wait for you to draw
@@ -29,8 +31,8 @@ $0 - wrapper for byzanz
 "
 
 function run_gui() {
-    
-    # Check if we have a display if not exit quitely 
+
+    # Check if we have a display if not exit quitely
     if [ -z ${OUTPUT+x} ]
     then
         # if we are here we most probably havea  display ! WOOHOOO!!
@@ -38,23 +40,23 @@ function run_gui() {
         if type -P "zenity"  > /dev/null
         then
             #CHECK IF WE WANT TO CAPTREU FULL SCREEN
-            if zenity --question --text "Do you want to caputre Full screen?" 
+            if zenity --question --text "Do you want to caputre Full screen?"
             then
                 FULL_SCREEN=1
             else
                 FULL_SCREEN=0
             fi
 
-            DURATION="$(zenity --entry --text 'For how many seconds we should record the capture?'  --entry-text=10)"
+            DURATION="$(zenity --entry --text 'For how many seconds we should record the capture?'  --entry-text=$DEFAULT_DURATION)"
             FILE="$(zenity --file-selection --filename=/tmp/xcapture.gif --save)"
 
             if [[ $FULL_SCREEN -eq 1 ]]
             then
-            	gifit="byzanz-record  -d $DURATION --delay $DELAY $( if [[ $CURSOR -eq 1 ]] ; then echo "-c" ; fi) $FILE"
+                gifit="byzanz-record  -d $DURATION --delay $DELAY $( if [[ $CURSOR -eq 1 ]] ; then echo "-c" ; fi) $FILE"
             else
                 zenity --info --text "Please use your cursor to select the are you want to capture"
-            	eval $(xrectangle)
-            	gifit="byzanz-record  -d $DURATION --delay $DELAY $( if [[ $CURSOR -eq 1 ]] ; then echo "-c" ; fi )  -x $RECT_X -y $RECT_Y -h $RECT_HEIGHT -w $RECT_WIDTH $FILE"
+                eval $(xrectangle)
+                gifit="byzanz-record  -d $DURATION --delay $DELAY $( if [[ $CURSOR -eq 1 ]] ; then echo "-c" ; fi )  -x $RECT_X -y $RECT_Y -h $RECT_HEIGHT -w $RECT_WIDTH $FILE"
             fi
             echo "running $gifit"
             $gifit
@@ -71,10 +73,10 @@ function run_gui() {
 function run_cli() {
     if [[ $FULL_SCREEN -eq 1 ]]
     then
-    	gifit="byzanz-record  -d $DURATION --delay $DELAY $( if [[ $CURSOR -eq 1 ]] ; then echo "-c" ; fi) $FILE"
+        gifit="byzanz-record  -d $DURATION --delay $DELAY $( if [[ $CURSOR -eq 1 ]] ; then echo "-c" ; fi) $FILE"
     else
-    	eval $(xrectangle)
-    	gifit="byzanz-record  -d $DURATION --delay $DELAY $( if [[ $CURSOR -eq 1 ]] ; then echo "-c" ; fi )  -x $RECT_X -y $RECT_Y -h $RECT_HEIGHT -w $RECT_WIDTH $FILE"
+        eval $(xrectangle)
+        gifit="byzanz-record  -d $DURATION --delay $DELAY $( if [[ $CURSOR -eq 1 ]] ; then echo "-c" ; fi )  -x $RECT_X -y $RECT_Y -h $RECT_HEIGHT -w $RECT_WIDTH $FILE"
     fi
     echo "running $gifit"
     $gifit
@@ -85,22 +87,22 @@ function run_cli() {
 while getopts ":d:D:f:Fc" opt; do
   case $opt in
     F) FULL_SCREEN=1
-	;;	    
+    ;;
     d) DURATION=$OPTARG
-	;; 
+    ;;
     f)
       FILE=$OPTARG
-	;; 
+    ;;
     D)
       DELAY=$OPTARG
-	;;
+    ;;
     c)
       CURSOR=1
-	;;
+    ;;
     \?)
       echo "Invalid option: -$OPTARG" >&2
       echo "$HELP"
-      exit 
+      exit
       ;;
   esac
 done
