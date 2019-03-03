@@ -1,2 +1,2 @@
 #!/bin/bash
-killall -15 byzanz-record
+sleep 3 && killall -15 byzanz-record

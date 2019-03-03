@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# ALTERNATIVE INSTALL
+
 BINDIR="$HOME/bin"
 
 
@@ -32,4 +34,14 @@ else
     echo "file $BINDIR/xmkgif-setup already exist"
 fi
 
+if [ ! -f $BINDIR/xrectangle ]
+then
+    echo "building xrectangle"
+    gcc -Wall -lX11 xrectangle.c -o xrectangle -lX11
+    cp xrectangle $BINDIR
+else
+    echo "file $BINDIR/xrectangle already exists"
+fi
 
+echo "installing byzanz"
+sudo yum install -q -y byzanz zenity

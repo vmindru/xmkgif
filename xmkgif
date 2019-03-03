@@ -1,12 +1,12 @@
 #!/bin/bash
 
-DEAFAULT_DURATION=99999
-DURATION=$DEFAULT_DURATION
-CURSOR=0
-DELAY=0
-FILE="/tmp/gif.gif"
-FULL_SCREEN=0
-HELP="
+export DEFAULT_DURATION=99999
+export DURATION=$DEFAULT_DURATION
+export CURSOR=0
+export DELAY=0
+export DEFAULT_FILE="/tmp/xcapture.gif"
+export FULL_SCREEN=0
+export HELP="
 $0 - wrapper for byzanz
 
         xmkgif with no parameters will check for \$DISPLAY var if available and set
@@ -48,8 +48,11 @@ function run_gui() {
             fi
 
             DURATION="$(zenity --entry --text 'For how many seconds we should record the capture?'  --entry-text=$DEFAULT_DURATION)"
-            FILE="$(zenity --file-selection --filename=/tmp/xcapture.gif --save)"
-
+            FILE="$(zenity --file-selection --filename=$DEFAULT_FILE --save)"
+            if [ -f $FILE ]
+            then
+              rm $FILE
+            fi
             if [[ $FULL_SCREEN -eq 1 ]]
             then
                 gifit="byzanz-record  -d $DURATION --delay $DELAY $( if [[ $CURSOR -eq 1 ]] ; then echo "-c" ; fi) $FILE"
