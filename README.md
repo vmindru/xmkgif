@@ -1,5 +1,7 @@
 #xmkgif
-wrapper for byzanz to capture your screen 
+wrapper for byzanz to capture your screen
+
+[![Copr build status](https://copr.fedorainfracloud.org/coprs/mindruv/xmkgif/package/xmkgif/status_image/last_build.png)](https://copr.fedorainfracloud.org/coprs/mindruv/xmkgif/package/xmkgif/)
 
 ## small demo
 ![alt tag](https://raw.githubusercontent.com/vmindru/xrectangle/master/misc/small.gif)
@@ -7,16 +9,17 @@ wrapper for byzanz to capture your screen
 
 ```
 ./xmkgif - wrapper for byzanz
-        
-        xmkgif with no parameters will check for $DISPLAY var if available and set 
-        it will attempt to interact with users other GUI to capture main information.
-        Using zenity. If $DISPALY is not set it will simply pritn this help message.
 
-        -d  duration in seconds ( default 10s )
-        -D  Delay in seconds ( default 0s )
-        -f  Path to the file to store ( default /tmp/gif.gif )
-        -c  If mentioned it will record cursor ( default false ) 
-        -F  record in full screen mode ( default False ) 
+        xmkgif with no parameters will check for $DISPLAY var if available and set
+        it will attempt to interact with users other GUI to capture main information.
+        Using zenity. If $DISPALY is not set it will simply pritn this help message.\n
+        To interupt recording before end of timer simply run xmkgif-stop.
+
+    -d  dration in seconds ( default 10s )
+    -D  Delay in seconds ( default 0s )
+    -f  Path to the file to store ( default /tmp/gif.gif )
+    -c  If mentioned it will record cursor ( default false )
+    -F  record in full screen mode ( default False )
             if not specified draw a rectacnlge area you want to capture
 
         e.g.:   ./xmkgif  -d 3 /tmp/file.gif - will wait for you to draw
@@ -26,24 +29,47 @@ wrapper for byzanz to capture your screen
                 ./xmkgif -F -d 3 /tmp/full_file.gif - note the -F param ,
                 this will simply record your entire screen for 3 second and
                 store this into /tmp/full_file.gif
- ```
+```
 
-# How To Install 
 
-## Preqreq 
+# How to install
 
-Please install the tools bellow using your favourite package manager 
+dnf install
 
-### byzanz 
+```
+dnf copr enable mindruv/xmkgif
+dnf install xmkgif
+```
+
+## create and isntall rpm
+
+```
+rpmbuild -ba xmkgif.spec
+$HOME/rpmbuild/RPMS/x86_64/xmkgif*
+```
+
+## using Make file
+
+```
+make
+make install
+```
+
+## Manual install
+
+### Preqreq
+
+
+### byzanz
 tool to capture your desktop and store it in .gif format
-https://github.com/GNOME/byzanz 
+https://github.com/GNOME/byzanz
 
 ### zenity
 Capture input var's from GUI, used for user interaction.
 
 
 ### Build xreactangle
-build xreactangle and copy this somewhere to your $PATH 
+build xreactangle and copy this somewhere to your $PATH
 `gcc -Wall -lX11 xrectangle.c -o xrectangle -lX11`
 
 ### xmkgif - copy this to your path
@@ -51,9 +77,9 @@ build xreactangle and copy this somewhere to your $PATH
 or
 `cp xmkgif $HOME/bin/xmkgif`
 
-## Wrapper 
-__Note:__ Prereq install byzans on your Computer from github or using your favourite package manager 
-__xmkgif__ is just a wrapper for byzanz it will help you select a screen area using xtrectangle or capture entire screen 
+## Wrapper
+__Note:__ Prereq install byzans on your Computer from github or using your favourite package manager
+__xmkgif__ is just a wrapper for byzanz it will help you select a screen area using xtrectangle or capture entire screen
 
 ## TODO: build and publish an RPM
 
