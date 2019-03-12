@@ -37,8 +37,8 @@ wrapper for byzanz to capture your screen
 dnf install
 
 ```
-dnf copr enable mindruv/xmkgif
-dnf install xmkgif
+sudo dnf copr enable mindruv/xmkgif
+sudo dnf install xmkgif
 ```
 
 ## create and isntall rpm
