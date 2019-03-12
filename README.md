@@ -37,7 +37,7 @@ wrapper for byzanz to capture your screen
 dnf install
 
 ```
-sudo dnf copr enable mindruv/xmkgif
+curl -s https://copr.fedorainfracloud.org/coprs/mindruv/xmkgif/repo/epel-7/mindruv-xmkgif-epel-7.repo  | sudo tee /etc/yum.repos.d/_copr_mindruv-epel-xmkgif.repo
 sudo dnf install xmkgif
 ```
 
